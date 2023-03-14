@@ -1,0 +1,93 @@
+#+TITLE: Basic API using Django REST and PostgreSQL
+This will be a basic project following the tutorial on https://dev.to/jkaylight/django-rest-framework-with-postgresql-a-crud-tutorial-1l34. The end result is an API that has CRUD capabilities. The main purpose of this project is just the pedagogical benefits for myself of documenting my learning progress regarding these frameworks.
+* REST API
+Whereas an API is just a general term for how one abstraction of code communicates with another, a REST API is an API that does this through HTTP requests.
+* CRUD Operations
+CRUD stands for four basic operations used in relational database systems.
+
+- CREATE
+- READ
+- UPDATE
+- DELETE
+* Installing PostgreSQL on Arch Linux
+Since I'm using Arch linux I'll use the pacman command.
+#+begin_src shell :session
+pacman -S postgresql
+#+end_src
+* Creating a Database
+By default there is a user called 'postgres' so we'll change to that.
+#+begin_src shell
+sudo su - postgres
+#+end_src
+
+By typing
+#+begin_src shell
+psql
+#+end_src
+we get an interactive terminal for PostGreSQL queries.
+
+So now we can create a database for our project.
+
+#+begin_src shell
+CREATE DATABASE mydb;
+#+end_src
+
+* Error I got when typing psql
+I got the error
+#+begin_example
+psql: error: connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: No such file or directory
+#+end_example
+
+Reading https://wiki.archlinux.org/title/PostgreSQL it mentions that the database cluster must be first initialized which can be done by running
+#+begin_src shell
+initdb -D /var/lib/postgres/data
+#+end_src
+
+After that we can start and enable the systemd service
+#+begin_src shell
+systemctl enable postgresql.service
+systemctl start postgresql.service
+#+end_src
+
+Now if we switch to the postgres user and type psql it should work.
+
+* Creating a Database User
+We will create the database user 'myuser' with the password 'password' (of course for a serious project you would want the password to be strong and not something like 'password').
+#+begin_src shell
+CREATE USER myuser WITH PASSWORD 'password';
+#+end_src
+
+Then we will grant access rights to myuser:
+#+begin_src shell
+GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser;
+#+end_src
+
+Then we can exit shell session and leave the interactive terminal with
+#+begin_src shell
+\q
+exit
+#+end_src
+
+* Installing Django and Setting up a Django Project
+Let us first setup a virtual environment (this repository is the environment so the following commands are executed in the directory above):
+#+begin_src shell
+python -m venv django-rest-postgresql-basic-project
+cd django-rest-postgresql-basic-project
+source ./bin/activate
+#+end_src
+
+Now we'll install three packages
+- Django: A web framework
+- Django Rest Framework: a toolkit for creating RESTful APIs with Django
+- psycopg2: PostgreSQL package that connects our app to PostgreSQL
+
+#+begin_src shell
+pip install django djangorestframework psycopg2
+#+end_src
+
+Now let's create a django project with
+#+begin_src shell
+django-admin startproject project
+#+end_src
+
+To add the REST framework to the project we add the string 'rest_framework" to the list variable INSTALLED_APPS in [[file:project/project/settings.py][settings.py]].
