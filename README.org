@@ -1,5 +1,5 @@
 #+TITLE: Basic API using Django REST and PostgreSQL
-This will be a basic project following the tutorial on https://dev.to/jkaylight/django-rest-framework-with-postgresql-a-crud-tutorial-1l34. The end result is an API that has CRUD capabilities. The main purpose of this project is just the pedagogical benefits for myself of documenting my learning progress regarding these frameworks.
+This will be a basic project following the tutorial on [[https://dev.to/jkaylight/django-rest-framework-with-postgresql-a-crud-tutorial-1l34]]. The end result is an API that has CRUD capabilities. The main purpose of this project is just the pedagogical benefits for myself of documenting my learning progress regarding these frameworks.
 * REST API
 Whereas an API is just a general term for how one abstraction of code communicates with another, a REST API is an API that does this through HTTP requests.
 * CRUD Operations
@@ -91,3 +91,74 @@ django-admin startproject project
 #+end_src
 
 To add the REST framework to the project we add the string 'rest_framework" to the list variable INSTALLED_APPS in [[file:project/project/settings.py][settings.py]].
+
+* Setting up Django Database Configuration
+By default the project is setup for sqlite3. We will change it to PostgreSQL with our created user by specifying the DATABASES variable in [[file:project/project/settings.py][settings.py]] as
+#+begin_src python :results output
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydb',
+        'USER': 'myuser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+#+end_src
+
+* Creating a Django app
+To create an app with django we cd into ./project/ and run
+#+begin_src shell
+python manage.py startapp customer
+#+end_src
+
+After that we add this app by adding 'customer' to the list variable INSTALLED_APPS in [[file:project/project/settings.py][settings.py]].
+
+In the [[file:project/customer/][./project/customer/]] folder therer are the files [[file:project/customer/models.py][models.py]] and [[file:project/customer/views.py][views.py]]. In the [[file:project/customer/models.py][models.py]] we shall add the following class that inherits from Django's Model class:
+#+begin_src python :tangle ./project/customer/models.py
+from django.db import models
+
+class Customer(models.Model):
+    name = models.CharField("Name", max_length=240)
+    email = models.EmailField()
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+#+end_src
+
+We can then create database columns with the fields of our models with the following code:
+#+begin_src shell
+python manage.py makemigrations
+python manage.py migrate
+#+end_src
+
+* Error I got during migration
+When I ran
+#+begin_src shell
+python manage.py migrate
+#+end_src
+in the last step I got the error
+#+begin_example
+django.db.migrations.exceptions.MigrationSchemaMissing: Unable to create the django_migrations table (permission denied for schema public
+LINE 1: CREATE TABLE "django_migrations" ("id" bigint NOT NULL PRIMA...
+                     ^
+)
+#+end_example
+
+Reading https://github.com/netbox-community/netbox/discussions/11314 it seems to be that the previous step of granting permissions to myuser by typing
+#+begin_src shell
+GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser;
+#+end_src
+in the PostgreSQL terminal was not enough, but could be solved by instead running
+#+begin_src shell
+ALTER DATABASE mydb OWNER TO myuser;
+#+end_src
+
+After this 
+#+begin_src shell
+python manage.py migrate
+#+end_src
+ran succesfully.
+
