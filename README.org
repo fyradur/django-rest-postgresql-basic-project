@@ -1,6 +1,7 @@
 #+TITLE: Basic API using Django REST and PostgreSQL
 #+OPTIONS: toc:2    
 #+OPTIONS: toc:t 
+#+PROPERTY: header-args    :exports both
 This will be a basic project following the tutorial on [[https://dev.to/jkaylight/django-rest-framework-with-postgresql-a-crud-tutorial-1l34]]. The end result is an API that has CRUD capabilities. The main purpose of this project is just the pedagogical benefits for myself of documenting my learning progress regarding these frameworks.
 * REST API
 Whereas an API is just a general term for how one abstraction of code communicates with another, a REST API is an API that does this through HTTP requests.
@@ -261,7 +262,7 @@ python manage.py runserver
 Then it runs locally on http://127.0.0.1:8000/customer/. Since we're running on linux we can use [[https://wiki.archlinux.org/title/CURL][cURL]] to interact with the API.
 
 Let's create a profile for "James Bond" (the primary key will start on 6 because I tested it earlier):
-#+begin_src shell :results value drawer :export
+#+begin_src shell :results value drawer
 curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "James Bond", "email": "james.bond@bondmail.com"}' http://127.0.0.1:8000/customer/create/
 #+end_src
 
@@ -272,7 +273,7 @@ curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "James Bond", "
 
 
 Let's create another profile for "John Doe":
-#+begin_src shell :results value drawer :export
+#+begin_src shell :results value drawer
 curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "John Doe", "email": "james.doe@doemail.com"}' http://127.0.0.1:8000/customer/create/
 #+end_src
 
@@ -283,7 +284,7 @@ curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "John Doe", "em
 
 
 Let's now list all the customers:
-#+begin_src shell :results value drawer :export
+#+begin_src shell :results value drawer
 curl -i -X GET http://127.0.0.1:8000/customer/
 #+end_src
 
@@ -294,7 +295,7 @@ curl -i -X GET http://127.0.0.1:8000/customer/
 
 
 Let's delete the user with pk=6:
-#+begin_src shell :results value drawer :export
+#+begin_src shell :results value drawer
 curl -i -X DELETE http://127.0.0.1:8000/customer/delete/6/
 #+end_src
 
@@ -305,7 +306,7 @@ curl -i -X DELETE http://127.0.0.1:8000/customer/delete/6/
 
 
 And let's see how that affected the list:
-#+begin_src shell :results value drawer :export
+#+begin_src shell :results value drawer
 curl -i -X GET http://127.0.0.1:8000/customer/
 #+end_src
 
