@@ -261,7 +261,7 @@ python manage.py runserver
 Then it runs locally on http://127.0.0.1:8000/customer/. Since we're running on linux we can use [[https://wiki.archlinux.org/title/CURL][cURL]] to interact with the API.
 
 Let's create a profile for "James Bond" (the primary key will start on 6 because I tested it earlier):
-#+begin_src shell :results value drawer
+#+begin_src shell :results value drawer :export
 curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "James Bond", "email": "james.bond@bondmail.com"}' http://127.0.0.1:8000/customer/create/
 #+end_src
 
@@ -272,7 +272,7 @@ curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "James Bond", "
 
 
 Let's create another profile for "John Doe":
-#+begin_src shell :results value drawer
+#+begin_src shell :results value drawer :export
 curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "John Doe", "email": "james.doe@doemail.com"}' http://127.0.0.1:8000/customer/create/
 #+end_src
 
@@ -283,7 +283,7 @@ curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "John Doe", "em
 
 
 Let's now list all the customers:
-#+begin_src shell :results value drawer
+#+begin_src shell :results value drawer :export
 curl -i -X GET http://127.0.0.1:8000/customer/
 #+end_src
 
@@ -294,7 +294,7 @@ curl -i -X GET http://127.0.0.1:8000/customer/
 
 
 Let's delete the user with pk=6:
-#+begin_src shell :results value drawer
+#+begin_src shell :results value drawer :export
 curl -i -X DELETE http://127.0.0.1:8000/customer/delete/6/
 #+end_src
 
@@ -305,7 +305,7 @@ curl -i -X DELETE http://127.0.0.1:8000/customer/delete/6/
 
 
 And let's see how that affected the list:
-#+begin_src shell :results value drawer
+#+begin_src shell :results value drawer :export
 curl -i -X GET http://127.0.0.1:8000/customer/
 #+end_src
 
