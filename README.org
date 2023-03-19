@@ -1,11 +1,23 @@
 #+TITLE: Basic API using Django REST and PostgreSQL
 This will be a basic project following the tutorial on [[https://dev.to/jkaylight/django-rest-framework-with-postgresql-a-crud-tutorial-1l34]]. The end result is an API that has CRUD capabilities. The main purpose of this project is just the pedagogical benefits for myself of documenting my learning progress regarding these frameworks.
 * Contents
-:CONTENTS:
-
-:END:
 :PROPERTIES:
-:TOC:      :include all :depth 2 :force (depth) :ignore (this) :local (depth)
+:TOC:      :include all :depth 4 :force (depth) :ignore (nothing) :local (nothing)
+:END:
+:CONTENTS:
+- [[#contents][Contents]]
+- [[#rest-api][REST API]]
+- [[#crud-operations][CRUD Operations]]
+- [[#installing-postgresql-on-arch-linux][Installing PostgreSQL on Arch Linux]]
+- [[#creating-a-database][Creating a Database]]
+- [[#error-i-got-when-typing-psql][Error I got when typing psql]]
+- [[#creating-a-database-user][Creating a Database User]]
+- [[#installing-django-and-setting-up-a-django-project][Installing Django and Setting up a Django Project]]
+- [[#setting-up-django-database-configuration][Setting up Django Database Configuration]]
+- [[#creating-a-django-app][Creating a Django app]]
+- [[#error-i-got-during-migration][Error I got during migration]]
+- [[#create-a-rest-api-with-django-rest-framework][Create a REST API with Django Rest Framework]]
+- [[#testing-it-out-locally][Testing it out locally]]
 :END:
 
 * REST API
