@@ -1,7 +1,13 @@
 #+TITLE: Basic API using Django REST and PostgreSQL
-#+OPTIONS: toc:2    
-#+OPTIONS: toc:t 
 This will be a basic project following the tutorial on [[https://dev.to/jkaylight/django-rest-framework-with-postgresql-a-crud-tutorial-1l34]]. The end result is an API that has CRUD capabilities. The main purpose of this project is just the pedagogical benefits for myself of documenting my learning progress regarding these frameworks.
+* Contents
+:CONTENTS:
+
+:END:
+:PROPERTIES:
+:TOC:      :include all :depth 2 :force (depth) :ignore (this) :local (depth)
+:END:
+
 * REST API
 Whereas an API is just a general term for how one abstraction of code communicates with another, a REST API is an API that does this through HTTP requests.
 * CRUD Operations
