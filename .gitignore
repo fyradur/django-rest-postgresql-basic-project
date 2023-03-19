@@ -1,0 +1,5 @@
+/project/project/__pycache__/*.pyc
+/project/customer/__pycache__/*.pyc
+/README.org~
+/lib/
+/lib64
