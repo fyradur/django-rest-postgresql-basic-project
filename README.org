@@ -327,3 +327,4 @@ Output:
 [{"pk":7,"name":"John Doe","email":"james.doe@doemail.com","created":"2023-03-19"}]0
 #+end_example
 
+Since we added views to these, it is also possible to interact with the API through the browser by going to the corresponding urls.
