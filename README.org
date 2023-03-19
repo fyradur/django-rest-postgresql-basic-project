@@ -262,7 +262,7 @@ python manage.py runserver
 Then it runs locally on http://127.0.0.1:8000/customer/. Since we're running on linux we can use [[https://wiki.archlinux.org/title/CURL][cURL]] to interact with the API.
 
 Let's create a profile for "James Bond" (the primary key will start on 6 because I tested it earlier):
-#+begin_src shell :results value drawer
+#+begin_src shell :results value drawer :exports both
 curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "James Bond", "email": "james.bond@bondmail.com"}' http://127.0.0.1:8000/customer/create/
 #+end_src
 
