@@ -1,7 +1,6 @@
 #+TITLE: Basic API using Django REST and PostgreSQL
 #+OPTIONS: toc:2    
 #+OPTIONS: toc:t 
-#+PROPERTY: header-args    :exports both
 This will be a basic project following the tutorial on [[https://dev.to/jkaylight/django-rest-framework-with-postgresql-a-crud-tutorial-1l34]]. The end result is an API that has CRUD capabilities. The main purpose of this project is just the pedagogical benefits for myself of documenting my learning progress regarding these frameworks.
 * REST API
 Whereas an API is just a general term for how one abstraction of code communicates with another, a REST API is an API that does this through HTTP requests.
@@ -252,7 +251,7 @@ urlpatterns = [
 ]
 #+end_src
 
-* Testing it out locally
+* Testing it out locally :ignore:
 We can start the server with
 #+begin_src shell
 python manage.py runserver
@@ -266,10 +265,10 @@ Let's create a profile for "James Bond" (the primary key will start on 6 because
 curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "James Bond", "email": "james.bond@bondmail.com"}' http://127.0.0.1:8000/customer/create/
 #+end_src
 
-#+RESULTS:
-:results:
+Output:
+#+begin_example 
 {"pk":6,"name":"James Bond","email":"james.bond@bondmail.com","created":"2023-03-19"}0
-:end:
+#+end_example 
 
 
 Let's create another profile for "John Doe":
@@ -277,10 +276,10 @@ Let's create another profile for "John Doe":
 curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "John Doe", "email": "james.doe@doemail.com"}' http://127.0.0.1:8000/customer/create/
 #+end_src
 
-#+RESULTS:
-:results:
+Output:
+#+begin_example
 {"pk":7,"name":"John Doe","email":"james.doe@doemail.com","created":"2023-03-19"}0
-:end:
+#+end_example
 
 
 Let's now list all the customers:
@@ -288,10 +287,10 @@ Let's now list all the customers:
 curl -i -X GET http://127.0.0.1:8000/customer/
 #+end_src
 
-#+RESULTS:
-:results:
+Output:
+#+begin_example
 [{"pk":6,"name":"James Bond","email":"james.bond@bondmail.com","created":"2023-03-19"},{"pk":7,"name":"John Doe","email":"james.doe@doemail.com","created":"2023-03-19"}]0
-:end:
+#+end_example
 
 
 Let's delete the user with pk=6:
@@ -299,19 +298,14 @@ Let's delete the user with pk=6:
 curl -i -X DELETE http://127.0.0.1:8000/customer/delete/6/
 #+end_src
 
-#+RESULTS:
-:results:
-0
-:end:
-
 
 And let's see how that affected the list:
 #+begin_src shell :results value drawer
 curl -i -X GET http://127.0.0.1:8000/customer/
 #+end_src
 
-#+RESULTS:
-:results:
+Output:
+#+begin_example
 [{"pk":7,"name":"John Doe","email":"james.doe@doemail.com","created":"2023-03-19"}]0
-:end:
+#+end_example
 
